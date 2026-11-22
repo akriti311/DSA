@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        // one part is going to be sorted anyway 
+         // and i will cjeck if it belongs to that sorted part or not 
+
+int low =0;
+int high = nums.size()-1;
+         while(low<=high){
+            int mid = (low+(high-low)/2);
+            
+            if(nums[mid] == target) return mid;
+            
+            // left sorted
+            if(nums[low] <= nums[mid]){
+                if(target <=nums[mid] && target >= nums[low]) high = mid-1;
+                else low = mid+1;
+            }
+            // if left not sorted then its a guraantee right is sorteed 
+            else {
+                if(target >= nums[mid] && target <=nums[high]) low = mid+1;
+                else high = mid-1;
+            }
+         }
+return -1;
+    }
+};
